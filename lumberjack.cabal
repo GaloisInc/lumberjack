@@ -12,7 +12,7 @@ description:         This is a logging facility.  Yes, there are many, and this 
                        performed in a monad stack with a MonadIO context to allow
                        writing to files.
                      . 
-                     * The specific logging action implementaions are managed separately
+                     * The specific logging action implementations are managed separately
                        from the actions of logging messages in the target code.  This
                        allows logging to be configurable and the manner of logging to
                        be specified at startup time without requiring changes in the
