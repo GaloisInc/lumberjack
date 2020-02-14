@@ -22,3 +22,6 @@ standard features, and be useable across a broad set of code.
 
  * The prettyprinter package is used for formatting.
 
+The ~example/ExampleLog.hs~ program shows various examples of how
+logging might be performed using the Lumberjack package.  This example
+can be compiled and run to observe the actual log output obtained.

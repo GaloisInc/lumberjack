@@ -27,6 +27,10 @@ instance HasLog T.Text IO where
 
 exampleTextLoggingInIO :: IO ()
 exampleTextLoggingInIO = do
+
+  -- This function represents the main code that logging output should
+  -- be generated from.  Here's an example of generating a log message:
+
   writeLogM $ T.pack "This is a logged text message in base IO"
 
   -- In situations where the current monad doesn't provide the log
@@ -48,7 +52,6 @@ instance HasLog [Char] IO where
 exampleStringLoggingInIO :: IO ()
 exampleStringLoggingInIO = do
   writeLogM ("This is a logged string message in base IO" :: String)
-  -- example of adjust
 
 
 ----------------------------------------------------------------------
@@ -102,23 +105,46 @@ instance HasLog T.Text MyMonad2 where
 
 exampleStringLoggingInMyMonad2 :: MyMonad2 ()
 exampleStringLoggingInMyMonad2 = do
+
+  -- As noted above, this function represents the main body of code.
+  -- The logging messages would be interspersed in this code at
+  -- appropriate locations to generate the various logged information.
+
   writeLogM $ msgWith { logText = "This is a logged string message in MyMonad" }
+
   -- withLogTag is a helper to set the logTags field for subsequently logged messages
   withLogTag "loc" "inner" $ do
     writeLogM $ msgWith { logText = "doing stuff..." }
     withLogTag "style" "(deep)" $ do
+
+      -- Tags accumulate and are applied to all messages logged.
       writeLogM $ msgWith { logText = "deep thinking",
                             logLevel = Info
                           }
+
       -- There's also a HasLog for simple messages in this monad
       writeLogM $ ("Text messages can be logged as well" :: T.Text)
+
+    -- Calls to other functions can be logged on entry and exit by
+    -- simply using this wrapper.  Note also that this is outside of
+    -- the inner withLogTag context, so only the outer tags are
+    -- applied, but the context for those tags extends to the logging
+    -- from the functions being called.
     logFunctionCallM "invoking subFunction" $ subFunction
+
+  -- Helpers can be used to log various types of information.  Here is
+  -- an indication of progress being made by the code.
   logProgressM "making good progress"
+
   writeLogM $ msgWith { logText = "Done now", logLevel = Warning }
+
 
 subFunction :: (WithLog LogMessage m, Monad m) => m ()
 subFunction =
+  -- An example of a monadic function called that can perform logging
+  -- with minimal constraints on the current Monad type.
   writeLogM $ msgWith { logText = "subFunction executing" }
+
 
 ----------------------------------------------------------------------
 
