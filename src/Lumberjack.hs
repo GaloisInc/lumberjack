@@ -50,7 +50,6 @@ module Lumberjack
   , logProgress, logProgressM
   , tshow
   , defaultGetIOLogAction
-  , defaultAdjustIOLogAction
   )
 where
 
@@ -143,10 +142,6 @@ class Monad m => HasLog msg m where
 
 class (Monad m, HasLog msg m) => LoggingMonad msg m where
   adjustLogAction :: (forall k. LogAction k msg -> LogAction k msg) -> m a -> m a
-
-
--- class (Monad m, HasLog msg m) => CanLog other m where
---   getLogAlt :: m (LogAction m msg)
 
 
 -- | This invokes the LogAction's logging handler in a monadic context
@@ -450,21 +445,3 @@ tshow = pack . show
 --  >     ...
 defaultGetIOLogAction :: MonadIO m => LogAction m T.Text
 defaultGetIOLogAction = LogAction $ liftIO . TIO.hPutStrLn stderr
-
-
--- | Similarly to the 'defaultGetIOLogAction', the
--- 'defaultAdjustIOLogAction' can be used as the default
--- implementation for HasLog in the IO monad; since there is no
--- ability to store the LogAction in the IO monad itself, this default
--- call is a no-op and the LogAction is unaffected; this is not
--- recommended but it is provided as a convenience for preliminary
--- logging implementations.
---
---  > instance HasLog anymsg IO where
---  >     adjustLogAction = defaultAdjustIOLogAction
---  >     ...
-defaultAdjustIOLogAction :: (Monad m) =>
-                            (forall k. MonadIO m => LogAction k msg -> LogAction k msg) -> m a -> m a
-defaultAdjustIOLogAction _ = id
-{-# WARNING defaultAdjustIOLogAction "Using defaultAdjustIOLogAction does not modify the LogAction:\n\
-                                     \This causes a functionality degradation in logging." #-}
