@@ -1,5 +1,9 @@
 # Revision history for lumberjack
 
+## 0.1.0.3 -- 2020-11-30
+
+* Bump prettyprinter upper-bound to allow versions in the 1.7.x range.
+
 ## 0.1.0.2 -- 2020-05-21
 
 * Enable support for GHC 8.4.
