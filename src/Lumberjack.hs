@@ -78,6 +78,7 @@ module Lumberjack
   , cvtLogMessageToANSITermText
     -- * Helpers and convenience functions
     -- $helpers
+  , (|#)
   , logFunctionCall, logFunctionCallM
   , logProgress, logProgressM
   , tshow
@@ -241,6 +242,18 @@ instance Monoid LogMessage where
 -- then be updated.
 msgWith :: LogMessage
 msgWith = mempty
+
+
+-- | This operator is a convenient infix operator for logging a Text
+-- message.  This is especially useful when used in conjunction with
+-- the 'OverloadedStrings' language pragma:
+--
+--   >>> warning|# "This is your last warning"
+--   >>> error|# "Failure has occurred"
+
+(|#) :: (LogMessage -> a) -> Text -> a
+o |# t = o (msgWith { logText = t })
+infixr 0 |#
 
 
 -- | Add the current timestamp to the LogMessage being logged
