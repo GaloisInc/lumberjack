@@ -1,5 +1,12 @@
 # Revision history for lumberjack
 
+## 1.0.0.0 -- 2020-12-20
+
+  * No longer Beta, so major version is now 1.0, although functionality
+    has not changed other than the addition of the `|#` operator.
+
+  * Added the `|#` convenience infix operator.
+
 ## 0.1.0.3 -- 2020-11-30
 
 * Bump prettyprinter upper-bound to allow versions in the 1.7.x range.
