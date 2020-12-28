@@ -4,7 +4,7 @@ not the fanciest, it doesn't have a cargo-van full of features.  This
 logger is designed to be straightforward to use, provide a good set of
 standard features, and be useable across a broad set of code.
 
- * Logging is a monadic activity.  This activity is most often
+ * Logging itself is a monadic activity.  This activity is most often
    performed in a monad stack with a MonadIO context to allow writing
    to files.
 
@@ -14,11 +14,14 @@ standard features, and be useable across a broad set of code.
    specified at startup time without requiring changes in the code
    from which log messages are being generated.
 
- * The logging implementation code can use cofunctors to adjust
-   existing logging.
+ * The logging implementation code can use contravariant functors to
+   adjust existing logging.
 
  * Main code will typically retrieve the logging actions from a Reader
-   context in your monad stack.
+   context in your monad stack.  That said, Log actions are not tied
+   to an enclosing Monad.  There are helpers to support a Monad which
+   can store Log actions, but Log actions can also be explicitly
+   passed and used.
 
  * The prettyprinter package is used for formatting.
 
