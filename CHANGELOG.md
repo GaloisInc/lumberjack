@@ -1,5 +1,11 @@
 # Revision history for lumberjack
 
+## 1.0.0.1 -- 2021-06-27
+
+  * Fix issue #2: use eta expansion example to avoid loss of deep
+    skolemisation support under the simplified subsumption rules in
+    GHC 9 [thanks to Felix Yan for the report].
+
 ## 1.0.0.0 -- 2020-12-20
 
   * No longer Beta, so major version is now 1.0, although functionality
