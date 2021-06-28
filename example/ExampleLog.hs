@@ -66,7 +66,7 @@ instance HasLog T.Text MyMonad where
   getLogAction = ask
 
 instance LoggingMonad T.Text MyMonad where
-  adjustLogAction = local
+  adjustLogAction a = local a
 
 exampleStringLoggingInMyMonad :: MyMonad ()
 exampleStringLoggingInMyMonad = do
@@ -92,7 +92,7 @@ instance HasLog LogMessage MyMonad2 where
   getLogAction = ask
 
 instance LoggingMonad LogMessage MyMonad2 where
-  adjustLogAction = local
+  adjustLogAction a = local a
 
 -- The above is sufficient to log LogMessage objects, but for
 -- convenience, Text can be logged directly as well, using the
