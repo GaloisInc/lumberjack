@@ -1,5 +1,9 @@
 # Revision history for lumberjack
 
+## 1.0.1.0 -- 2022-03-09
+
+  * Update for GHC 9.2 (base-4.16-*) [thanks to Ryan Scott].
+
 ## 1.0.0.1 -- 2021-06-27
 
   * Fix issue #2: use eta expansion example to avoid loss of deep

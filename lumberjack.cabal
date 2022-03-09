@@ -1,6 +1,6 @@
 cabal-version:       >=1.10
 name:                lumberjack
-version:             1.0.0.1
+version:             1.0.1.0
 synopsis:            Trek through your code forest and make logs
 description:         This is a logging facility.  Yes, there are many, and this is the one
                      with a beard, wearing flannel and boots, that gets the job done.  It's
@@ -35,7 +35,7 @@ license:             ISC
 license-file:        LICENSE
 author:              Kevin Quick
 maintainer:          kquick@galois.com
-copyright:           2020, Galois Inc.
+copyright:           2020-2022, Galois Inc.
 category:            Logging
 build-type:          Simple
 extra-source-files:  CHANGELOG.md
