@@ -111,8 +111,8 @@ import           Prelude
 
 -- * Interface for Logging
 
--- | The LogAction holds the ability to log a message of type 'msg'
--- (the second parameter) via a monad 'm' (the first parameter).
+-- | The LogAction holds the ability to log a message of type @msg@
+-- (the second parameter) via a monad @m@ (the first parameter).
 --
 -- LogActions are semigroup and monoid combineable, which results in
 -- both LogActions being taken (or no action in the case of mempty),
@@ -150,8 +150,8 @@ class Monad m => HasLog msg m where
 
 
 -- | This type is a Constraint that should be applied to any client
--- function that will perform logging in a monad context.  The 'msg'
--- is the type of message that will be logged, and the 'm' is the
+-- function that will perform logging in a monad context.  The @msg@
+-- is the type of message that will be logged, and the @m@ is the
 -- monad under which the logging is performed.
 type WithLog msg m = ({- X.MonadCatch m, -} HasLog msg m)
 
@@ -195,9 +195,9 @@ logFilter f (LogAction l) = LogAction $ \m -> when (f m) (l m)
 
 -- $richMsgType
 --
--- This is an enhanced 'msg' type for the LogAction, containing
+-- This is an enhanced message type for the LogAction, containing
 -- various auxiliary information associated with the log message.
--- While 'Lumberjack' can be used with other message types, this
+-- While "Lumberjack" can be used with other message types, this
 -- message type should provide support for most of the common logging
 -- auxiliary data and can therefore be used "out of the box".
 
@@ -246,7 +246,7 @@ msgWith = mempty
 
 -- | This operator is a convenient infix operator for logging a Text
 -- message.  This is especially useful when used in conjunction with
--- the 'OverloadedStrings' language pragma:
+-- the @OverloadedStrings@ language pragma:
 --
 --   >>> warning|# "This is your last warning"
 --   >>> error|# "Failure has occurred"
@@ -278,11 +278,11 @@ withLogTag tname tval op =
 
 -- $richMsgFormatting
 --
--- When the 'LogMessage' logging type is used, 'Lumberjack' provides a
+-- When the 'LogMessage' logging type is used, "Lumberjack" provides a
 -- standard set of output formatting functions.  The output uses the
--- prettyprinter package to generate 'Doc' output with annotations
--- specifying the type of markup to be applied to various portions of
--- the output.
+-- prettyprinter package to generate 'Prettyprinter.Doc' output with
+-- annotations specifying the type of markup to be applied to various
+-- portions of the output.
 --
 -- There are multiple rendering functions that can be supplied as
 -- contramap converters to the base 'LogAction'.  One rendering
@@ -296,10 +296,10 @@ withLogTag tname tval op =
 -- to different parts of the log message.  This is achieved by calling
 -- 'prettyLogMessage'.
 --
--- Alternatively, the 'Pretty' class 'pretty' method can be used to
--- get log message formatting for generic annotation types, but the
--- different parts of the message will not be distinguished via
--- annotation values.
+-- Alternatively, the 'Prettyprinter.Pretty' class @pretty@ method can
+-- be used to get log message formatting for generic annotation types,
+-- but the different parts of the message will not be distinguished
+-- via annotation values.
 data PrettyLogAnn = AnnLogType LogType
                   | AnnSeverity Severity
                   | AnnTime
@@ -369,8 +369,9 @@ prettyTags =
 -- | Format the log message with annotation values designating the
 -- different portions of the pretty-printed value.
 --
--- The 'Pretty' class 'pretty' method can be used for generic
--- annotations, but this yields less information for output management.
+-- The 'Prettyprinter.Pretty' class @pretty@ method can be used for
+-- generic annotations, but this yields less information for output
+-- management.
 prettyLogMessage :: LogMessage -> PP.Doc PrettyLogAnn
 prettyLogMessage (LogMessage {..}) = PP.hsep [ prettyTime logTime
                                              , prettySev logLevel
