@@ -96,9 +96,9 @@ import           Data.Semigroup
 import           Data.Text ( Text, pack, empty )
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
-import qualified Data.Text.Prettyprint.Doc as PP
-import qualified Data.Text.Prettyprint.Doc.Render.Terminal as PP_Term
-import qualified Data.Text.Prettyprint.Doc.Render.Text as PP_Text
+import qualified Prettyprinter as PP
+import qualified Prettyprinter.Render.Terminal as PP_Term
+import qualified Prettyprinter.Render.Text as PP_Text
 import           Data.Time.Clock ( UTCTime(..), getCurrentTime, diffUTCTime )
 import           Data.Time.Format ( defaultTimeLocale, formatTime )
 import           Data.Void
