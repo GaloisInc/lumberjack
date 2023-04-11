@@ -47,7 +47,7 @@ source-repository head
 library
   hs-source-dirs:    src
   exposed-modules:   Lumberjack
-  build-depends:     base          >= 4.11 && < 4.18
+  build-depends:     base          >= 4.11 && < 4.19
                    , contravariant >= 1.5 && < 1.6
                    , exceptions
                    , prettyprinter >= 1.6 && < 1.8
