@@ -86,9 +86,9 @@ module Lumberjack
   )
 where
 
+import           Control.Monad (when)
 import qualified Control.Monad.Catch as X
 import           Control.Monad.IO.Class
-import           Control.Monad.Reader
 import           Data.Functor.Contravariant
 import           Data.Functor.Contravariant.Divisible
 import           Data.Monoid hiding ( (<>) )

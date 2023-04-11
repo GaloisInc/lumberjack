@@ -50,7 +50,6 @@ library
   build-depends:     base          >= 4.11 && < 4.18
                    , contravariant >= 1.5 && < 1.6
                    , exceptions
-                   , mtl
                    , prettyprinter >= 1.6 && < 1.8
                    , prettyprinter-ansi-terminal >= 1.1.1.2 && < 1.2
                    , text
