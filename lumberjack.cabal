@@ -11,7 +11,7 @@ description:         This is a logging facility.  Yes, there are many, and this 
                      * Logging itself is a monadic activity.  This activity is most often
                        performed in a monad stack with a MonadIO context to allow
                        writing to files.
-                     . 
+                     .
                      * The specific logging action implementations are managed separately
                        from the actions of logging messages in the target code.  This
                        allows logging to be configurable and the manner of logging to
@@ -28,7 +28,7 @@ description:         This is a logging facility.  Yes, there are many, and this 
                        passed and used.
                      .
                      * The prettyprinter package is used for formatting.
-                     
+
 homepage:            https://github.com/GaloisInc/lumberjack
 bug-reports:         https://github.com/GaloisInc/lumberjack/issues
 license:             ISC
