@@ -1,6 +1,6 @@
 cabal-version:       >=1.10
 name:                lumberjack
-version:             1.0.2.0
+version:             1.0.3.0
 synopsis:            Trek through your code forest and make logs
 description:         This is a logging facility.  Yes, there are many, and this is the one
                      with a beard, wearing flannel and boots, that gets the job done.  It's

@@ -1,5 +1,10 @@
 # Revision history for lumberjack
 
+## 1.0.3.0 -- 2023-07-28
+
+  * Update for GHC 9.6 (`base-4.18.*`).
+  * Remove `lumberjack`'s dependency on `mtl`, which went unused.
+
 ## 1.0.2.0 -- 2023-01-03
 
   * Update for GHC 9.4 (base-4.17-*).
