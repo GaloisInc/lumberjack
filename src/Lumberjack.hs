@@ -254,6 +254,13 @@ msgWith = mempty
 --
 --   >>> warning|# "This is your last warning"
 --   >>> error|# "Failure has occurred"
+--
+-- The '|#' will convert the 'Text' to a 'LogMessage', and the user's function
+-- passed as a first argument can convert the 'LogMessage' into the preferred
+-- logging type for that application.  If the application continued to use
+-- 'LogMessage' then it could simply provide the following definition:
+--
+-- > warning msg = msg { logLevel = Warning }
 
 (|#) :: (LogMessage -> a) -> Text -> a
 o |# t = o (msgWith { logText = t })
