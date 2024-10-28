@@ -1,0 +1,66 @@
+*.py[cod]
+
+# C extensions
+*.so
+
+# LLVM build artifacts
+*.ll
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib64
+include
+.Python
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+_darcs
+.boring
+*~
+
+doc/internal
+default.nix
+
+.cmd_history
+
+# IntelliJ IDEA
+.idea
+
+# MacOS
+.DS_Store
+
+
+.swp
+.vscode
+
+#cabal
+dist-newstyle
+cabal.project
+cabal.project.local
+.cabal-updated
+.do_history
+.do.log
