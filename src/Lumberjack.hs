@@ -204,6 +204,9 @@ logFilter f (LogAction l) = LogAction $ \m -> when (f m) (l m)
 -- While "Lumberjack" can be used with other message types, this
 -- message type should provide support for most of the common logging
 -- auxiliary data and can therefore be used "out of the box".
+--
+-- /Note/ the 'LogMessage' type is a convenience type; lumberjack can be used
+-- with any message type desired.
 
 
 -- | The Severity indicates the relative importance of the logging
