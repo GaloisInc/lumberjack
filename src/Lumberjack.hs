@@ -153,7 +153,11 @@ class Monad m => HasLog msg m where
 -- function that will perform logging in a monad context.  The @msg@
 -- is the type of message that will be logged, and the @m@ is the
 -- monad under which the logging is performed.
+--
+-- /Note/ that 'WithLog' historically had additional functionality over 'HasLog'
+-- but no longer and is therefore deprecated in favor of 'HasLog'.
 type WithLog msg m = ({- X.MonadCatch m, -} HasLog msg m)
+{-# DEPRECATED WithLog "Use HasLog instead" #-}
 
 
 -- | An instance of the 'LoggingMonad' class can be defined for the
@@ -455,7 +459,7 @@ logFunctionCall = logFunctionCallWith . writeLog
 -- will also note the total amount of time taken during execution of
 -- the function.  Be advised that no strictness is applied to the
 -- internal monadic operation, so the time taken may be misleading.
-logFunctionCallM :: (MonadIO m, WithLog LogMessage m) => Text -> m a -> m a
+logFunctionCallM :: (MonadIO m, HasLog LogMessage m) => Text -> m a -> m a
 logFunctionCallM = logFunctionCallWith writeLogM
 
 
@@ -481,7 +485,7 @@ logProgress action txt = writeLog action $ msgWith { logLevel = Info, logType = 
 
 -- | Called to output a log message within a 'HasLog' monad to indicate
 -- that some progress in the current activity has been made.
-logProgressM :: (MonadIO m, WithLog LogMessage m) => Text -> m ()
+logProgressM :: (MonadIO m, HasLog LogMessage m) => Text -> m ()
 logProgressM txt = writeLogM $ msgWith { logLevel = Info, logType = Progress, logText = txt }
 
 
