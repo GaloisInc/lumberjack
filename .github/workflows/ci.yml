@@ -1,0 +1,70 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ci:
+    name: ${{ matrix.os }} ghc-${{ matrix.ghc }} ${{ matrix.cache-key-prefix }}
+    strategy:
+      fail-fast: false
+      matrix:
+        cache-key-prefix: [""]  # see `include` below
+        configure-flags: [""]  # see `include` below
+        ghc: [9.8.4, 9.10.1, 9.12.2]
+        haddock: [true]  # see `include` below
+        os: [ubuntu-24.04]
+        pre-hook: [""]  # see `include` below
+        include:
+        # TODO: Add lower bounds
+        # Include a single build (with latest Linux OS and oldest GHC version)
+        # using `--prefer-oldest` to verify that we still build against the
+        # lower bounds in the Cabal `build-depends`.
+        # - cache-key-prefix: prefer-oldest
+        #   configure-flags: --prefer-oldest
+        #   ghc: 9.8.4
+        #   haddock: false
+        #   os: ubuntu-24.04
+
+        # Include a single build (with latest Linux OS and latest GHC version)
+        # using `cabal-force-upper-bounds` to verify that we actually build
+        # against the upper bounds in the Cabal `build-depends`.
+        - cache-key-prefix: upper-bounds
+          ghc: 9.12.2
+          haddock: false
+          os: ubuntu-24.04
+          pre-hook: |
+            curl \
+              --fail \
+              --location \
+              --proto '=https' \
+              --show-error \
+              --silent \
+              --tlsv1.2 \
+              https://github.com/nomeata/cabal-force-upper-bound/releases/download/0.1/cabal-force-upper-bound.linux.gz | \
+              gunzip > \
+              /usr/local/bin/cabal-force-upper-bound
+            chmod +x /usr/local/bin/cabal-force-upper-bound
+            echo 'packages: .' > cabal.project
+            cabal-force-upper-bound --cabal-project *.cabal >> cabal.project
+        # Include a build (with latest Linux OS) against Stackage LTS package
+        # sets for each supported version of GHC that has one to verify that we
+        # support building against these widely-used package sets.
+        - cache-key-prefix: stackage
+          ghc: 9.8.4
+          haddock: false
+          os: ubuntu-24.04
+          pre-hook: |
+            echo 'packages: .' > cabal.project
+            echo 'import: https://www.stackage.org/lts-23.19/cabal.config' >> cabal.project
+    uses: GaloisInc/.github/.github/workflows/haskell-ci.yml@v1
+    with:
+      cache-key-prefix: ${{ matrix.cache-key-prefix }}
+      # See Note [Parallelism] in `haskell-ci.yml` for why `--ghc-options='-j'`
+      # and `--semaphore`.
+      configure-flags: --enable-tests --ghc-options='-j' --semaphore ${{ matrix.configure-flags }}
+      ghc: ${{ matrix.ghc }}
+      haddock: ${{ matrix.haddock }}
+      os: ${{ matrix.os }}
+      pre-hook: ${{ matrix.pre-hook }}
