@@ -17,7 +17,7 @@ jobs:
         os: [ubuntu-24.04]
         pre-hook: [""]  # see `include` below
         include:
-        # TODO: Add lower bounds
+        # TODO(#11): Add lower bounds to `build-depends` to make this work.
         # Include a single build (with latest Linux OS and oldest GHC version)
         # using `--prefer-oldest` to verify that we still build against the
         # lower bounds in the Cabal `build-depends`.
