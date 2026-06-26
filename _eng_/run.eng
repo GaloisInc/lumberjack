@@ -1,0 +1,39 @@
+dev =
+  subcmd =
+    build =
+      Builds the project
+        exec = cabal build lumberjack
+
+    flake_update =
+      Update flake dependencies =
+        in dir = {TopDir}
+        exec = nix flake update --option tarball-ttl 60
+
+    nixbuild
+      Uses nix to build with current GHC versions
+        in dir = {TopDir}
+        exec = nix build --no-link .#lumberjack.ghc910 .#lumberjack.ghc912 .#lumberjack.ghc914
+
+    nixbuild:old
+      Uses nix to build with old GHC versions
+        in dir = {TopDir}
+        notes =
+          * singletons-th is particularly sensitive to dependency versions.
+          * singletons-base is marked as broken in 24.05
+        exec =
+          echo :::: lumberjack ghc810 and ghc92
+          nix build --no-link .#lumberjack.ghc92 .#lumberjack.ghc810 --override-input nixpkgs github:nixos/nixpkgs/23.05
+          echo :::: lumberjack ghc94
+          nix build --no-link .#lumberjack.ghc94 --override-input nixpkgs github:nixos/nixpkgs/23.11
+
+    nixbuild:recent
+      Uses nix to build with recent GHC versions
+        in dir = {TopDir}
+        exec =
+          nix build --no-link .#lumberjack.ghc96 .#lumberjack.ghc98
+
+    nixbuild:all =
+      Uses nix to build with all supported GHC versions =
+        in dir = {TopDir}
+        needs = nixbuild nixbuild:old nixbuild:recent
+        exec = echo All nix builds completed
