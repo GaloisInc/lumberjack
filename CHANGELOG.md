@@ -1,5 +1,11 @@
 # Revision history for lumberjack
 
+## 1.0.3.1 -- 2026-06-26
+
+  * Support through GHC 9.14.
+  * Added flake for building with `nix`.
+  * Added `eng` specification.
+
 ## 1.0.3.0 -- 2023-07-28
 
   * Update for GHC 9.6 (`base-4.18.*`).
