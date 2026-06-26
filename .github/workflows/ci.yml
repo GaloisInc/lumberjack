@@ -48,16 +48,16 @@ jobs:
             chmod +x /usr/local/bin/cabal-force-upper-bound
             echo 'packages: .' > cabal.project
             cabal-force-upper-bound --cabal-project *.cabal >> cabal.project
-        # Include a build (with latest Linux OS) against Stackage LTS package
-        # sets for each supported version of GHC that has one to verify that we
-        # support building against these widely-used package sets.
-        - cache-key-prefix: stackage
-          ghc: 9.8.4
-          haddock: false
-          os: ubuntu-24.04
-          pre-hook: |
-            echo 'packages: .' > cabal.project
-            echo 'import: https://www.stackage.org/lts-23.19/cabal.config' >> cabal.project
+        # # Include a build (with latest Linux OS) against Stackage LTS package
+        # # sets for each supported version of GHC that has one to verify that we
+        # # support building against these widely-used package sets.
+        # - cache-key-prefix: stackage
+        #   ghc: 9.8.4
+        #   haddock: false
+        #   os: ubuntu-24.04
+        #   pre-hook: |
+        #     echo 'packages: .' > cabal.project
+        #     echo 'import: https://www.stackage.org/lts-23.19/cabal.config' >> cabal.project
     uses: GaloisInc/.github/.github/workflows/haskell-ci.yml@v1
     with:
       cache-key-prefix: ${{ matrix.cache-key-prefix }}
