@@ -1,0 +1,5 @@
+The files in this directory are cached nix derivations generated via cabal2nix by
+the "eng dev update_nix_derivs" operation.  These are for optimization purposes
+and may be safely deleted: the build will succeed without these although it may
+take longer since it will need to dynamically regenerate the files stored
+statically here.

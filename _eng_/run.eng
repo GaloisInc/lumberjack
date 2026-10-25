@@ -4,10 +4,23 @@ dev =
       Builds the project
         exec = cabal build lumberjack
 
-    flake_update =
-      Update flake dependencies =
+    update_deps =
+      Update all dependencies =
         in dir = {TopDir}
-        exec = nix flake update --option tarball-ttl 60
+        exec = nix run .#depmgr flake_update
+
+    update_deps:local =
+      Update local development dependencies =
+        needs = build:nix-deriv
+        in dir = {TopDir}
+        exec = |
+          set -e
+          nix run .#depmgr flake_update kquick
+
+    build:nix-deriv
+      Builds local (cached) derivation
+        in dir = {TopDir}/nix
+        exec = nix run nixpkgs#cabal2nix .. > lumberjack.nix
 
     nixbuild
       Uses nix to build with current GHC versions
